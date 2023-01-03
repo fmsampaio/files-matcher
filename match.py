@@ -19,6 +19,18 @@ def fillFilesList(argPath):
         exit()
     
     return returnable
+
+def matchFiles(file1, file2):
+    text1 = open(file1).read()
+    text2 = open(file2).read()    
+    m = SequenceMatcher(None, text1, text2)
+    similarity = m.ratio()
+
+    return {
+        'file1' : file1,
+        'file2' : file2,
+        'similarity' : similarity * 100
+        }
    
 
 if __name__ == '__main__':
@@ -31,13 +43,18 @@ if __name__ == '__main__':
     filesList2 = fillFilesList(sys.argv[2])
 
     print(f'[DBG] Files list 1: {filesList1}')
-    print(f'[DBG] Files list 2: {filesList2}')       
-    
+    print(f'[DBG] Files list 2: {filesList2}')
 
-"""
-    text1 = open(sys.argv[1]).read()
-    text2 = open(sys.argv[2]).read()
+    reportList = []
+
+    for file1 in filesList1:
+        for file2 in filesList2:
+            
+            if file1 != file2 and file1.endswith('.circ') and file2.endswith('.circ'):
+                print(file1)
+                print(file2 + '\n\n')
+                reportList.append(matchFiles(file1, file2))
     
-    m = SequenceMatcher(None, text1, text2)
-    print(m.ratio())
-"""
+    print('[DBG] Report:')
+    for report in reportList:
+        print(report)
