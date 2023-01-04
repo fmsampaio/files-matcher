@@ -3,6 +3,8 @@ import os
 
 from difflib import SequenceMatcher
 
+TARGET_FILES_EXT = '.mem'
+
 filesList1 = []
 filesList2 = []
 
@@ -32,6 +34,8 @@ def matchFiles(file1, file2):
         'similarity' : similarity * 100
         }
    
+def generateTsvLine(r):
+    return f'{r["similarity"]}\t{r["file1"]}\t{r["file2"]}\n'
 
 if __name__ == '__main__':
 
@@ -47,14 +51,20 @@ if __name__ == '__main__':
 
     reportList = []
 
+    totalComps = len(filesList1) * len(filesList2)
+
+    idComp = 0
     for file1 in filesList1:
-        for file2 in filesList2:
-            
-            if file1 != file2 and file1.endswith('.circ') and file2.endswith('.circ'):
+        for file2 in filesList2:       
+            if file1 != file2 and file1.endswith(TARGET_FILES_EXT) and file2.endswith(TARGET_FILES_EXT):
+                print(f'[DBG] Comp {idComp} of {totalComps}')
                 print(file1)
                 print(file2 + '\n\n')
                 reportList.append(matchFiles(file1, file2))
+            idComp += 1
     
-    print('[DBG] Report:')
+    fpReport = open("report.tsv", "w")
+    fpReport.write('similarity\tfile_1\tfile_2\n')
     for report in reportList:
-        print(report)
+        fpReport.write(generateTsvLine(report))
+    fpReport.close()
