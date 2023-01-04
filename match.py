@@ -9,19 +9,19 @@ TARGET_FILES_EXT = '.mem'
 @click.command()
 @click.option('-s', '--single_path', default='null', help='Similarity evaluation within a single path.')
 @click.option('-m', '--multi_path', type=(str,str), default=('null','null'), help='Similarity evaluation considering a combination of two paths.')
+@click.option('-e', '--ext', multiple=True, default=['all'], help='Filter the similarity verification to specified file extensions (Default: all).')
 
-def checkSimilarity(single_path, multi_path):
+def checkSimilarity(single_path, multi_path, ext):
     filesList1 = []
     filesList2 = []
     
     handleFilesList(single_path, multi_path, filesList1, filesList2)
     
-    reportList = compareFilesLists(filesList1, filesList2)
+    reportList = compareFilesLists(filesList1, filesList2, ext)
     exportReportAsTsv(reportList)
 
 
 def handleFilesList(single_path, multi_path, filesList1, filesList2):
-    print(single_path, multi_path)
     if single_path != 'null':
         fillFilesList(filesList1, single_path)
         fillFilesList(filesList2, single_path)
@@ -44,14 +44,16 @@ def fillFilesList(filesList, argPath):
         print(f'[Error] Given path ({argPath}) is not a file neither a folder')
         exit()
     
-def compareFilesLists(filesList1, filesList2):
+def compareFilesLists(filesList1, filesList2, extensions):
     reportList = []
     totalComps = len(filesList1) * len(filesList2)
 
     idComp = 0
     for file1 in filesList1:
-        for file2 in filesList2:       
-            if file1 != file2 and file1.endswith(TARGET_FILES_EXT) and file2.endswith(TARGET_FILES_EXT):
+        for file2 in filesList2:
+            isFile1ToBeCompared = checkExtension(file1, extensions)
+            isFile2ToBeCompared = checkExtension(file2, extensions)
+            if file1 != file2 and isFile1ToBeCompared and isFile2ToBeCompared:
                 status = float(idComp)/totalComps * 100
                 print(f'[Status] {status:.1f}%')
                 reportList.append(matchFiles(file1, file2))
@@ -70,6 +72,17 @@ def matchFiles(file1, file2):
         'file2' : file2,
         'similarity' : similarity * 100
         }
+
+def checkExtension(fileName, extensions):
+    returnable = False
+
+    if extensions[0] == 'all':
+        returnable = True
+    else:
+        for ext in extensions:
+            if fileName.endswith(ext):
+                returnable = True
+    return returnable
 
 def exportReportAsTsv(reportList):
     fpReport = open("report.tsv", "w")
