@@ -2,6 +2,8 @@ import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5 import uic
 
+from matcher import Matcher
+
 
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self, *args, **kwargs):
@@ -12,6 +14,8 @@ class MainWindow(QtWidgets.QMainWindow):
 
         self.path1 = ''
         self.path2 = ''
+
+        self.matcher = Matcher()
 
         self.singlePathRadioBtn.setChecked(True)
         self.multiPathRadioBtn.setChecked(False)
@@ -24,6 +28,8 @@ class MainWindow(QtWidgets.QMainWindow):
         self.openFolder1Btn.clicked.connect(self.handleOpenFolder1BtnClicked)
         self.openFile2Btn.clicked.connect(self.handleOpenFile2BtnClicked)
         self.openFolder2Btn.clicked.connect(self.handleOpenFolder2BtnClicked)
+
+        self.loadFilesBtn.clicked.connect(self.handleLoadFilesBtnClicked)
 
 
     def handleSinglePathSelection(self):
@@ -60,8 +66,17 @@ class MainWindow(QtWidgets.QMainWindow):
         self.path2TextEdit.setText(self.path2)
         print(f'[DBG] Selected folder for PATH #2: {self.path2}')
 
+    def handleLoadFilesBtnClicked(self):
+        if self.singlePathRadioBtn.isChecked():
+            self.matcher.handleSinglePathFilesList(self.path1)
+        elif self.multiPathRadioBtn.isChecked():
+            self.matcher.handleMultiPathFilesList((self.path1, self.path2))
+        
+        
 
-app = QtWidgets.QApplication(sys.argv)
-window = MainWindow()
-window.show()
-app.exec_()
+
+if __name__ == '__main__':
+    app = QtWidgets.QApplication(sys.argv)
+    window = MainWindow()
+    window.show()
+    app.exec_() 
