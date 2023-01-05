@@ -12,14 +12,14 @@ class Matcher:
         self.OUTPUT_REPORT_FOLDER = 'outputs/'
 
     def handleSinglePathFilesList(self, path):
-        self.fillFilesList(self.filesList1, path)
-        self.fillFilesList(self.filesList2, path)
+        self.__fillFilesList(self.filesList1, path)
+        self.__fillFilesList(self.filesList2, path)
 
     def handleMultiPathFilesList(self, paths):
-        self.fillFilesList(self.filesList1, paths[0])
-        self.fillFilesList(self.filesList2, paths[1])
+        self.__fillFilesList(self.filesList1, paths[0])
+        self.__fillFilesList(self.filesList2, paths[1])
     
-    def fillFilesList(self, filesList, argPath):
+    def __fillFilesList(self, filesList, argPath):
         if os.path.isfile(argPath):
             filesList.append(os.path.abspath(argPath))
         elif os.path.isdir(argPath):
@@ -36,16 +36,16 @@ class Matcher:
         idComp = 0
         for file1 in self.filesList1:
             for file2 in self.filesList2:
-                isFile1ToBeCompared = self.checkExtension(file1, extensions)
-                isFile2ToBeCompared = self.checkExtension(file2, extensions)
+                isFile1ToBeCompared = self.__checkExtension(file1, extensions)
+                isFile2ToBeCompared = self.__checkExtension(file2, extensions)
                 if file1 != file2 and isFile1ToBeCompared and isFile2ToBeCompared:
                     status = float(idComp)/totalComps * 100
                     print(f'[Status] {status:.1f}%')
-                    self.reportSet.add(self.matchFiles(file1, file2))
+                    self.reportSet.add(self.__matchFiles(file1, file2))
                 idComp += 1
         
     
-    def matchFiles(self, file1, file2):
+    def __matchFiles(self, file1, file2):
         text1 = open(file1, encoding = "ISO-8859-1").read()
         text2 = open(file2, encoding = "ISO-8859-1").read()    
         m = SequenceMatcher(None, text1, text2)
@@ -53,7 +53,7 @@ class Matcher:
 
         return Report(file1, file2, similarity)
 
-    def checkExtension(self, fileName, extensions):
+    def __checkExtension(self, fileName, extensions):
         returnable = False
 
         if extensions[0] == 'all':
