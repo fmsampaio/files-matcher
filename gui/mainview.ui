@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>513</width>
-    <height>315</height>
+    <width>505</width>
+    <height>357</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -44,7 +44,7 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>5</y>
+      <y>10</y>
       <width>150</width>
       <height>16</height>
      </rect>
@@ -75,7 +75,7 @@
      </font>
     </property>
     <property name="text">
-     <string>PATH #1</string>
+     <string>PATH #1:</string>
     </property>
    </widget>
    <widget class="QTextEdit" name="path1TextEdit">
@@ -126,7 +126,7 @@
      </font>
     </property>
     <property name="text">
-     <string>PATH #2</string>
+     <string>PATH #2:</string>
     </property>
    </widget>
    <widget class="QPushButton" name="openFile1Btn">
@@ -181,13 +181,136 @@
      <string>Open File</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="loadFilesBtn">
+    <property name="geometry">
+     <rect>
+      <x>399</x>
+      <y>280</y>
+      <width>91</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Load files</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="pathModeLabel_2">
+    <property name="geometry">
+     <rect>
+      <x>230</x>
+      <y>10</y>
+      <width>150</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Files extensions:</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox">
+    <property name="geometry">
+     <rect>
+      <x>350</x>
+      <y>10</y>
+      <width>87</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>All</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_2">
+    <property name="geometry">
+     <rect>
+      <x>430</x>
+      <y>10</y>
+      <width>87</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>.mem</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_3">
+    <property name="geometry">
+     <rect>
+      <x>430</x>
+      <y>30</y>
+      <width>87</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>.circ</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_4">
+    <property name="geometry">
+     <rect>
+      <x>350</x>
+      <y>30</y>
+      <width>87</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>.ods</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_5">
+    <property name="geometry">
+     <rect>
+      <x>350</x>
+      <y>50</y>
+      <width>87</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>.odt</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_6">
+    <property name="geometry">
+     <rect>
+      <x>350</x>
+      <y>70</y>
+      <width>87</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>.pdf</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_7">
+    <property name="geometry">
+     <rect>
+      <x>430</x>
+      <y>50</y>
+      <width>87</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>.py</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>513</width>
+     <width>505</width>
      <height>22</height>
     </rect>
    </property>
