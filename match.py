@@ -63,8 +63,8 @@ def compareFilesLists(filesList1, filesList2, extensions):
     return reportSet
 
 def matchFiles(file1, file2):
-    text1 = open(file1).read()
-    text2 = open(file2).read()    
+    text1 = open(file1, encoding = "ISO-8859-1").read()
+    text2 = open(file2, encoding = "ISO-8859-1").read()    
     m = SequenceMatcher(None, text1, text2)
     similarity = float(m.ratio())
 
