@@ -3,8 +3,9 @@ import os
 import click
 
 from difflib import SequenceMatcher
+from report import Report
 
-TARGET_FILES_EXT = '.mem'
+OUTPUT_REPORT_FOLDER = 'outputs/'
 
 @click.command()
 @click.option('-s', '--single_path', default='null', help='Similarity evaluation within a single path.')
@@ -17,8 +18,8 @@ def checkSimilarity(single_path, multi_path, ext):
     
     handleFilesList(single_path, multi_path, filesList1, filesList2)
     
-    reportList = compareFilesLists(filesList1, filesList2, ext)
-    exportReportAsTsv(reportList)
+    reportSet = compareFilesLists(filesList1, filesList2, ext)
+    exportReportAsTsv(reportSet)
 
 
 def handleFilesList(single_path, multi_path, filesList1, filesList2):
@@ -45,7 +46,7 @@ def fillFilesList(filesList, argPath):
         exit()
     
 def compareFilesLists(filesList1, filesList2, extensions):
-    reportList = []
+    reportSet = set()
     totalComps = len(filesList1) * len(filesList2)
 
     idComp = 0
@@ -56,22 +57,18 @@ def compareFilesLists(filesList1, filesList2, extensions):
             if file1 != file2 and isFile1ToBeCompared and isFile2ToBeCompared:
                 status = float(idComp)/totalComps * 100
                 print(f'[Status] {status:.1f}%')
-                reportList.append(matchFiles(file1, file2))
+                reportSet.add(matchFiles(file1, file2))
             idComp += 1
     
-    return reportList
+    return reportSet
 
 def matchFiles(file1, file2):
     text1 = open(file1).read()
     text2 = open(file2).read()    
     m = SequenceMatcher(None, text1, text2)
-    similarity = m.ratio()
+    similarity = float(m.ratio())
 
-    return {
-        'file1' : file1,
-        'file2' : file2,
-        'similarity' : similarity * 100
-        }
+    return Report(file1, file2, similarity)
 
 def checkExtension(fileName, extensions):
     returnable = False
@@ -84,16 +81,15 @@ def checkExtension(fileName, extensions):
                 returnable = True
     return returnable
 
-def exportReportAsTsv(reportList):
-    fpReport = open("report.tsv", "w")
+def exportReportAsTsv(reportSet):
+    fpReport = open(f'{OUTPUT_REPORT_FOLDER}/report.tsv', 'w')
     fpReport.write('similarity\tfile_1\tfile_2\n')
+
+    reportList = sorted(list(reportSet))
+
     for report in reportList:
-        fpReport.write(generateTsvLine(report))
+        fpReport.write(str(report))
     fpReport.close()
-
-def generateTsvLine(r):
-    return f'{r["similarity"]}\t{r["file1"]}\t{r["file2"]}\n'
-
 
 
 if __name__ == '__main__':
