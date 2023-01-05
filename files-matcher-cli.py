@@ -2,6 +2,8 @@ import sys
 import os
 import click
 
+from matcher import Matcher
+
 from difflib import SequenceMatcher
 from report import Report
 
@@ -13,15 +15,28 @@ OUTPUT_REPORT_FOLDER = 'outputs/'
 @click.option('-e', '--ext', multiple=True, default=['all'], help='Filter the similarity verification to specified file extensions (Default: all).')
 
 def checkSimilarity(single_path, multi_path, ext):
-    filesList1 = []
-    filesList2 = []
+    matcher = Matcher()
+
+    if single_path != 'null':
+        matcher.handleSinglePathFilesList(single_path)
+    elif multi_path[0] != 'null':
+        matcher.handleMultiPathFilesList(multi_path)
+    else:
+        print(f'[Error] A single or multi path option must be informed!')
+        exit()
     
+    matcher.compareFilesLists(ext)
+    matcher.exportReportAsTsv()
+    
+    """
     handleFilesList(single_path, multi_path, filesList1, filesList2)
     
     reportSet = compareFilesLists(filesList1, filesList2, ext)
     exportReportAsTsv(reportSet)
+    """
 
 
+"""
 def handleFilesList(single_path, multi_path, filesList1, filesList2):
     if single_path != 'null':
         fillFilesList(filesList1, single_path)
@@ -90,7 +105,7 @@ def exportReportAsTsv(reportSet):
     for report in reportList:
         fpReport.write(str(report))
     fpReport.close()
-
+"""
 
 if __name__ == '__main__':
     checkSimilarity()
