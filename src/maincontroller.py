@@ -93,6 +93,12 @@ class MainWindow(QtWidgets.QMainWindow):
         elif self.multiPathRadioBtn.isChecked():
             self.matcher.handleMultiPathFilesList((self.path1, self.path2))
         
+        extensions = []
+        for checkBox in self.extCheckBoxes:
+            if checkBox.isChecked():
+                extensions.append(checkBox.text())
+        
+        print(f'[DBG] Extensions: {extensions}')
         
 
 
