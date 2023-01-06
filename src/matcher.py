@@ -9,7 +9,7 @@ class Matcher:
         self.filesList2 = []
         self.reportSet = set()
 
-        self.OUTPUT_REPORT_FOLDER = 'outputs/'
+        self.OUTPUT_REPORT_FOLDER = 'outputs'
 
     def handleSinglePathFilesList(self, path):
         self.__fillFilesList(self.filesList1, path)

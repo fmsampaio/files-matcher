@@ -88,6 +88,8 @@ class MainWindow(QtWidgets.QMainWindow):
         print(f'[DBG] Selected folder for PATH #2: {self.path2}')
 
     def handleLoadFilesBtnClicked(self):
+        self.matcher = Matcher()
+        
         if self.singlePathRadioBtn.isChecked():
             self.matcher.handleSinglePathFilesList(self.path1)
         elif self.multiPathRadioBtn.isChecked():
@@ -97,9 +99,10 @@ class MainWindow(QtWidgets.QMainWindow):
         for checkBox in self.extCheckBoxes:
             if checkBox.isChecked():
                 extensions.append(checkBox.text())
-        
         print(f'[DBG] Extensions: {extensions}')
-        
+
+        self.matcher.compareFilesLists(extensions)
+        self.matcher.exportReportAsTsv()        
 
 
 if __name__ == '__main__':
