@@ -17,6 +17,14 @@ class MainWindow(QtWidgets.QMainWindow):
 
         self.matcher = Matcher()
 
+        self.extCheckBoxes = []
+        self.extCheckBoxes.append(self.circCheckBox)
+        self.extCheckBoxes.append(self.memCheckBox)
+        self.extCheckBoxes.append(self.odsCheckBox)
+        self.extCheckBoxes.append(self.odtCheckBox)
+        self.extCheckBoxes.append(self.pdfCheckBox)
+        self.extCheckBoxes.append(self.pyCheckBox)        
+
         self.singlePathRadioBtn.setChecked(True)
         self.multiPathRadioBtn.setChecked(False)
         self.handleSinglePathSelection()
@@ -24,12 +32,15 @@ class MainWindow(QtWidgets.QMainWindow):
         self.singlePathRadioBtn.clicked.connect(self.handleSinglePathSelection)
         self.multiPathRadioBtn.clicked.connect(self.handleMultiPathSelection)
 
+        self.allCheckBox.clicked.connect(self.handleAllCheckBoxSelection)
+
         self.openFile1Btn.clicked.connect(self.handleOpenFile1BtnClicked)
         self.openFolder1Btn.clicked.connect(self.handleOpenFolder1BtnClicked)
         self.openFile2Btn.clicked.connect(self.handleOpenFile2BtnClicked)
         self.openFolder2Btn.clicked.connect(self.handleOpenFolder2BtnClicked)
 
         self.loadFilesBtn.clicked.connect(self.handleLoadFilesBtnClicked)
+        
 
 
     def handleSinglePathSelection(self):
@@ -45,6 +56,16 @@ class MainWindow(QtWidgets.QMainWindow):
         self.path2TextEdit.setDisabled(False)
         self.openFile2Btn.setDisabled(False)
         self.openFolder2Btn.setDisabled(False)
+
+    def handleAllCheckBoxSelection(self):
+        if self.allCheckBox.isChecked():
+            for checkBox in self.extCheckBoxes:
+                checkBox.setChecked(True)
+                checkBox.setDisabled(True)
+        else:
+            for checkBox in self.extCheckBoxes:
+                checkBox.setChecked(False)
+                checkBox.setDisabled(False)
 
     def handleOpenFile1BtnClicked(self):
         self.path1 = QtWidgets.QFileDialog.getOpenFileName(self)[0]

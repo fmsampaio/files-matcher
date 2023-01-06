@@ -213,7 +213,7 @@
      <string>Files extensions:</string>
     </property>
    </widget>
-   <widget class="QCheckBox" name="checkBox">
+   <widget class="QCheckBox" name="allCheckBox">
     <property name="geometry">
      <rect>
       <x>350</x>
@@ -222,11 +222,18 @@
       <height>21</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <weight>75</weight>
+      <bold>true</bold>
+      <underline>false</underline>
+     </font>
+    </property>
     <property name="text">
      <string>All</string>
     </property>
    </widget>
-   <widget class="QCheckBox" name="checkBox_2">
+   <widget class="QCheckBox" name="memCheckBox">
     <property name="geometry">
      <rect>
       <x>430</x>
@@ -239,7 +246,7 @@
      <string>.mem</string>
     </property>
    </widget>
-   <widget class="QCheckBox" name="checkBox_3">
+   <widget class="QCheckBox" name="circCheckBox">
     <property name="geometry">
      <rect>
       <x>430</x>
@@ -252,7 +259,7 @@
      <string>.circ</string>
     </property>
    </widget>
-   <widget class="QCheckBox" name="checkBox_4">
+   <widget class="QCheckBox" name="odsCheckBox">
     <property name="geometry">
      <rect>
       <x>350</x>
@@ -265,7 +272,7 @@
      <string>.ods</string>
     </property>
    </widget>
-   <widget class="QCheckBox" name="checkBox_5">
+   <widget class="QCheckBox" name="odtCheckBox">
     <property name="geometry">
      <rect>
       <x>350</x>
@@ -278,7 +285,7 @@
      <string>.odt</string>
     </property>
    </widget>
-   <widget class="QCheckBox" name="checkBox_6">
+   <widget class="QCheckBox" name="pdfCheckBox">
     <property name="geometry">
      <rect>
       <x>350</x>
@@ -291,7 +298,7 @@
      <string>.pdf</string>
     </property>
    </widget>
-   <widget class="QCheckBox" name="checkBox_7">
+   <widget class="QCheckBox" name="pyCheckBox">
     <property name="geometry">
      <rect>
       <x>430</x>
